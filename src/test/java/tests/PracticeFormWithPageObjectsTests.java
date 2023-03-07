@@ -1,52 +1,70 @@
 package tests;
 
+import pages.RegistrationPage;
+import pages.components.RegistrationResultModal;
 import org.junit.jupiter.api.Test;
 
-public class PracticeFormWithPageObjectsTests  extends TestBase{
+
+public class PracticeFormWithPageObjectsTests extends TestBase {
+    RegistrationPage registrationPage = new RegistrationPage();
+    RegistrationResultModal registrationResultModal = new RegistrationResultModal();
 
     @Test
     void fillPracticeForm() {
         // Входные данные
-        String currentFirstName = "Ted";
-        String currentLastName = "Lasso";
-        String currentEmail = "ted_lasso@example.com";
-        String currentGender = "Male";
-        String currentPhone = "1234567890";
-        String currentDayOfBirthday = "18", currentMonthOfBirthday = "September", currentYearOfBirthday = "1975";
-        String[] currentSubjects = {"Maths", "English", "Chemistry"};
-        String[] currentHobbies = {"Sports", "Music"};
-        String currentPathToPicture = "pictures/lasso.jpg";
-        String currentAddress = "Scotland, City of Glasgow, Glasgow, 35";
-        String currentState = "Uttar Pradesh";
-        String currentCity = "Merrut";
+        String firstName = "Ted";
+        String lastName = "Lasso";
+        String email = "ted_lasso@example.com";
+        String gender = "Male";
+        String mobile = "1234567890";
+        String dayOfBirthday = "18", monthOfBirthday = "September", yearOfBirthday = "1975";
+        String[] subjects = {"Maths", "English", "Chemistry"};
+        String[] hobbies = {"Sports", "Music"};
+        String pathToPicture = "pictures/lasso.jpg";
+        String address = "Scotland, City of Glasgow, Glasgow, 35";
+        String state = "Uttar Pradesh";
+        String city = "Merrut";
+
+        // Для проверки результата
+        String expectedStudentName = String.format("%s %s", firstName, lastName);
+        String expectedEmail = String.format("%s", email);
+        String expectedGender = String.format("%s", gender);
+        String expectedMobile = String.format("%s", mobile);
+        String expectedDateOfBirth = String.format("%s %s,%s", dayOfBirthday, monthOfBirthday, yearOfBirthday);
+        String expectedSubjects = String.join(", ", subjects);
+        String expectedHobbies = String.join(", ", hobbies);
+        String expectedPicture = String.format("%s", pathToPicture.split("/")[1]);
+        String expectedAddress = String.format("%s", address);
+        String expectedStateAndCity = String.format("%s %s", state, city);
 
         // Заполняем форму.
         registrationPage.openPage()
-                            .setFirstName(currentFirstName)
-                            .setLastName(currentLastName)
-                            .setEmail(currentEmail)
-                            .setGender(currentGender)
-                            .setPhone(currentPhone)
-                            .setBirthday(currentDayOfBirthday, currentMonthOfBirthday, currentYearOfBirthday)
-                            .setSubjects(currentSubjects)
-                            .setHobbies(currentHobbies)
-                            .uploadPicture(currentPathToPicture)
-                            .setAddress(currentAddress)
-                            .setState(currentState)
-                            .setCity(currentCity)
-                        .pressSubmit();
+                .removeBanners()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setGender(gender)
+                .setPhone(mobile)
+                .setBirthday(dayOfBirthday, monthOfBirthday, yearOfBirthday)
+                .setSubjects(subjects)
+                .setHobbies(hobbies)
+                .uploadPicture(pathToPicture)
+                .setAddress(address)
+                .setState(state)
+                .setCity(city)
+                .pressSubmit();
 
         // Проверка результата.
-        registrationPage.verifyResultsModalAppears()
-                        .verifyResult("Student Name"  , "Ted Lasso")
-                        .verifyResult("Student Email" , "ted_lasso@example.com")
-                        .verifyResult("Gender"        , "Male")
-                        .verifyResult("Mobile"        , "1234567890")
-                        .verifyResult("Date of Birth" , "18 September,1975")
-                        .verifyResult("Subjects"      , "Maths, English, Chemistry")
-                        .verifyResult("Hobbies"       , "Sports, Music")
-                        .verifyResult("Picture"       , "lasso.jpg")
-                        .verifyResult("Address"       , "Scotland, City of Glasgow, Glasgow, 35")
-                        .verifyResult("State and City", "Uttar Pradesh Merrut");
+        registrationResultModal.verifyModalAppear()
+                .verifyResult("Student Name", expectedStudentName)
+                .verifyResult("Student Email", expectedEmail)
+                .verifyResult("Gender", expectedGender)
+                .verifyResult("Mobile", expectedMobile)
+                .verifyResult("Date of Birth", expectedDateOfBirth)
+                .verifyResult("Subjects", expectedSubjects)
+                .verifyResult("Hobbies", expectedHobbies)
+                .verifyResult("Picture", expectedPicture)
+                .verifyResult("Address", expectedAddress)
+                .verifyResult("State and City", expectedStateAndCity);
     }
 }

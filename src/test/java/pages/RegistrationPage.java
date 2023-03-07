@@ -2,7 +2,6 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
-import pages.components.RegistrationResultModal;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -11,10 +10,9 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
     private CalendarComponent calendarComponent = new CalendarComponent();
-    private RegistrationResultModal registrationResultModal = new RegistrationResultModal();
 
     private final String TITLE_TEXT = "Student Registration Form";
-    private SelenideElement
+    private final SelenideElement
             firstNameInput = $("input#firstName"),
             lastNameInput = $("input#lastName"),
             emailInput = $("input#userEmail"),
@@ -26,9 +24,9 @@ public class RegistrationPage {
             pictureUpload = $("#uploadPicture"),
             addressInput = $("#currentAddress"),
             stateClick = $("#state"),
-            stateChoose = $("#stateCity-wrapper"),
+            stateItem = $("#stateCity-wrapper"),
             cityClick = $("#city"),
-            cityChoose = $("#stateCity-wrapper"),
+            cityItem = $("#stateCity-wrapper"),
             buttonSubmit = $("#submit");
 
 
@@ -36,6 +34,10 @@ public class RegistrationPage {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text(TITLE_TEXT));
 
+        return this;
+    }
+
+    public RegistrationPage removeBanners() {
         // Чтобы убрать всплывающие баннеры.
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
@@ -87,7 +89,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setSubjects(String[] values) {
-        for (String val: values) {
+        for (String val : values) {
             subjectsInput.setValue(val).pressEnter();
         }
 
@@ -95,7 +97,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setHobbies(String[] values) {
-        for (String val: values) {
+        for (String val : values) {
             hobbiesInput.$(byText(val)).click();
         }
 
@@ -116,32 +118,20 @@ public class RegistrationPage {
 
     public RegistrationPage setState(String value) {
         stateClick.click();
-        stateChoose.$(byText(value)).click();
+        stateItem.$(byText(value)).click();
 
         return this;
     }
 
     public RegistrationPage setCity(String value) {
         cityClick.click();
-        cityChoose.$(byText(value)).click();
+        cityItem.$(byText(value)).click();
 
         return this;
     }
 
     public RegistrationPage pressSubmit() {
         buttonSubmit.click();
-
-        return this;
-    }
-
-    public RegistrationPage verifyResultsModalAppears() {
-        registrationResultModal.verifyModalAppear();
-
-        return this;
-    }
-
-    public RegistrationPage verifyResult(String key, String value) {
-        registrationResultModal.verifyResult(key, value);
 
         return this;
     }
