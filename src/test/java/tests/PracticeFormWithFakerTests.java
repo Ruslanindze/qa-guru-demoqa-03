@@ -10,7 +10,6 @@ import java.util.Map;
 
 import static java.lang.String.format;
 import static utils.LittleHelper.getMapBirthdayFromDate;
-import static utils.LittleHelper.getNumbersWithSizeFromString;
 import static utils.RandomUtils.getRandomItemFromArray;
 import static utils.RandomUtils.getRandomItemsFromArray;
 
@@ -38,13 +37,12 @@ public class PracticeFormWithFakerTests extends TestBase {
         String lastName = faker.name().lastName();
         String email = faker.internet().emailAddress();
         String gender = getRandomItemFromArray(listGenders);
-        String phoneNumber = getNumbersWithSizeFromString(faker.phoneNumber().phoneNumber(), 10);
+        String phoneNumber = faker.phoneNumber().subscriberNumber(10);
         // Магия по распаковке др, полученного от faker.
         Map<String, String> mapOfBirthDay = getMapBirthdayFromDate(faker.date().birthday());
         String dayOfBirthday = mapOfBirthDay.get("day"),
                 monthOfBirthday = mapOfBirthDay.get("month"),
                 yearOfBirthday = mapOfBirthDay.get("year");
-
         String[] subjects = getRandomItemsFromArray(listSubjects);
         String[] hobbies = getRandomItemsFromArray(listHobbies);
         String pathToPicture = "pictures/lasso.jpg";

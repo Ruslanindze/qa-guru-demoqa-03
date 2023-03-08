@@ -9,15 +9,6 @@ public class LittleHelper {
     public static String[] monthNames = {"January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"};
 
-    public static String getNumbersWithSizeFromString(String dirtyPhone, int size) {
-        String clearPhone = dirtyPhone
-                .replaceAll("[^0-9 ]", "")
-                .replace(" ", "")
-                .substring(0, size);
-
-        return clearPhone;
-    }
-
     public static Map<String, String> getMapBirthdayFromDate(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
