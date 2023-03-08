@@ -130,6 +130,16 @@ public class RegistrationPage {
         return this;
     }
 
+    public RegistrationPage setStateWithCity(String state, String city) {
+        stateClick.click();
+        stateItem.$(byText(state)).click();
+
+        cityClick.click();
+        cityItem.$(byText(city)).click();
+
+        return this;
+    }
+
     public RegistrationPage pressSubmit() {
         buttonSubmit.click();
 
