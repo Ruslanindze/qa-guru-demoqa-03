@@ -50,18 +50,6 @@ public class PracticeFormWithFakerTests extends TestBase {
         String state = getRandomItemFromArray(mapStateWithCity.keySet().toArray(new String[0])); // Выбран случайный штат
         String city = getRandomItemFromArray(mapStateWithCity.get(state)); // Выбран случайный город штата выше
 
-        // Ожидаемые результаты.
-        String expectedStudentName = format("%s %s", firstName, lastName);
-        String expectedEmail = format("%s", email);
-        String expectedGender = format("%s", gender);
-        String expectedMobile = format("%s", phoneNumber);
-        String expectedDateOfBirth = format("%s %s,%s", dayOfBirthday, monthOfBirthday, yearOfBirthday);
-        String expectedSubjects = String.join(", ", subjects);
-        String expectedHobbies = String.join(", ", hobbies);
-        String expectedPicture = format("%s", pathToPicture.split("/")[1]);
-        String expectedAddress = format("%s", address);
-        String expectedStateAndCity = format("%s %s", state, city);
-
         // Заполняем форму.
         registrationPage.openPage()
                 .removeBanners()
@@ -80,15 +68,15 @@ public class PracticeFormWithFakerTests extends TestBase {
 
         // Проверка результата.
         registrationResultModal.verifyModalAppear()
-                .verifyResult("Student Name", expectedStudentName)
-                .verifyResult("Student Email", expectedEmail)
-                .verifyResult("Gender", expectedGender)
-                .verifyResult("Mobile", expectedMobile)
-                .verifyResult("Date of Birth", expectedDateOfBirth)
-                .verifyResult("Subjects", expectedSubjects)
-                .verifyResult("Hobbies", expectedHobbies)
-                .verifyResult("Picture", expectedPicture)
-                .verifyResult("Address", expectedAddress)
-                .verifyResult("State and City", expectedStateAndCity);
+                .verifyResult("Student Name", format("%s %s", firstName, lastName))
+                .verifyResult("Student Email", format("%s", email))
+                .verifyResult("Gender", format("%s", gender))
+                .verifyResult("Mobile", format("%s", phoneNumber))
+                .verifyResult("Date of Birth", format("%s %s,%s", dayOfBirthday, monthOfBirthday, yearOfBirthday))
+                .verifyResult("Subjects", String.join(", ", subjects))
+                .verifyResult("Hobbies", String.join(", ", hobbies))
+                .verifyResult("Picture", format("%s", pathToPicture.split("/")[1]))
+                .verifyResult("Address", format("%s", address))
+                .verifyResult("State and City", format("%s %s", state, city));
     }
 }
