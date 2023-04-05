@@ -1,10 +1,12 @@
 package tests;
 
+import org.junit.jupiter.api.Tag;
 import pages.RegistrationPage;
 import pages.components.RegistrationResultModal;
 import org.junit.jupiter.api.Test;
 
 
+@Tag("jenkins")
 public class PracticeFormWithPageObjectsTests extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     RegistrationResultModal registrationResultModal = new RegistrationResultModal();

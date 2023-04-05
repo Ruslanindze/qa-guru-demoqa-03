@@ -1,6 +1,7 @@
 package tests;
 
 import com.github.javafaker.Faker;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import pages.components.RegistrationResultModal;
@@ -14,6 +15,7 @@ import static utils.RandomUtils.getRandomItemFromArray;
 import static utils.RandomUtils.getRandomItemsFromArray;
 
 
+@Tag("jenkins")
 public class PracticeFormWithFakerTests extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     RegistrationResultModal registrationResultModal = new RegistrationResultModal();
