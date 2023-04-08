@@ -21,7 +21,7 @@
 *.iml
 
 # Project gen files
-.idea
+/.idea
 .allure/
 .gradle/
 allure-results/
@@ -39,3 +39,4 @@ target/
 /gradlew.bat
 .todo
 *.properties
+/notifications/config.json
